@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: brown;
 }
 
 i {
@@ -9,6 +10,9 @@ i {
 }
 .login-form {
   width: 40%;
+  background-image: image(
+    "https://image.shutterstock.com/image-photo/macro-leaves-background-texture-blue-600w-728448754.jpg"
+  );
 }
 
 .hidden {
