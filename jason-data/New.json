@@ -2,15 +2,15 @@
   "productlist": [
     {
       "id": 1,
-      "Product": "T-Shirt",
       "img": "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/1673725/2018/2/16/11518766944851-Roadster-Men-Navy-Striped-Round-Neck-T-shirt-4281518766944542-1.jpg",
-      "price": "600"
+      "price": "600",
+      "value": "T-Shirtr"
     },
     {
       "id": 2,
       "value": "Shirt",
       "img": "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/7460073/2018/9/21/1c88b4ea-b2b3-4c75-b1f5-82bff7252d8b1537519651731-NA-1711537519651556-1.jpg",
-      "price": "50"
+      "price": "501"
     },
     {
       "id": 3,
@@ -20,7 +20,7 @@
     },
     {
       "id": 4,
-      "value": "Anklet",
+      "value": "Anklettt",
       "img": "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/2324735/2018/1/16/11516091736502-PRITA-Oxidised-Silver-Toned--Black-Beaded-Anklets-601516091736427-1.jpg",
       "price": "80"
     },

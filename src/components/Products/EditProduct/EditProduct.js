@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
+
 import axios from "axios";
-class EditProduct extends Component {
+class EditProduct extends React.Component {
   constructor(props) {
     super(props);
 
@@ -17,6 +18,7 @@ class EditProduct extends Component {
       img: "",
     };
   }
+
   componentWillMount() {
     if (this.props.location.state !== undefined) {
       axios
@@ -99,7 +101,7 @@ class EditProduct extends Component {
           <div>
             <h3>Edit Product!!!!</h3>
 
-            <form onSubmit={this.editProduct}>
+            <form>
               <label>Id: </label>
 
               <input type="number" value={this.state.id} readOnly></input>
@@ -128,7 +130,9 @@ class EditProduct extends Component {
 
               <br></br>
 
-              <button type="submit">Edit Product</button>
+              <button type="button" onClick={this.editProduct}>
+                Edit Product
+              </button>
 
               <br></br>
 
