@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);
+  /* background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcREK5djTSCG-OkY6LKcDOhEjAWnvp2fLE-Cxw&usqp=CAU); */
 }
 
 i {
@@ -11,7 +11,7 @@ i {
 .login-form {
   width: 40%;
   background-image: image(
-    "https://image.shutterstock.com/image-photo/macro-leaves-background-texture-blue-600w-728448754.jpg"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcREK5djTSCG-OkY6LKcDOhEjAWnvp2fLE-Cxw&usqp=CAU"
   );
 }
 

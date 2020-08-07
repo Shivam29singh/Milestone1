@@ -11,6 +11,7 @@ class Home extends Component {
       productList: [],
       searchFriends: [],
       searchValue: "",
+      myid: 0,
     };
   }
 
@@ -27,9 +28,16 @@ class Home extends Component {
       this.setState({ deleteSuccess: false });
     }, 2000);
   };
-
+  editProductWithId = (id) => {
+    this.setState({ myid: id });
+    console.log("Edit friend with id: " + id);
+    this.props.history.push({
+      pathname: "/editproduct",
+      state: { myid: id },
+    });
+  };
   getAllProducts = () => {
-    axios.get("http://localhost:3000/productlist").then(
+    axios.get(" http://localhost:3000/productlist").then(
       (response) => {
         console.log(response);
         console.log(response.data);
@@ -60,6 +68,7 @@ class Home extends Component {
     console.log(searchF);
     this.setState({ productList: searchF });
   };
+
   renderAllProducts = () => {
     return this.state.productList.map((product) => {
       return (
