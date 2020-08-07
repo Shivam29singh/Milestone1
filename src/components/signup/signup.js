@@ -1,17 +1,51 @@
 import React from "react";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
+import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import "./signup.css";
-import { Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+// import logo from "../../asset/logo.png";
 
-const SIGNUP_SUCCESS = "Signup successful.";
+function passwordValidate(pass) {
+  const strongRegex = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})"
+  );
+  if (strongRegex.test(pass)) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
-const SIGNUP_ERROR = "Please try again later.";
+function validate(state) {
+  const errors = [];
+  if (state.firstName === "") {
+    errors.push("First name is required");
+  }
 
-const MAX_DATE = "2010-12-31";
+  if (state.lastName === "") {
+    errors.push("Last name is required");
+  }
+  // if (state.dob === "") {
+  //   errors.push("DOB is required");
+  // }
+  if (state.mobile === "") {
+    errors.push("Mobile Number is required");
+  }
+  if (state.email.length < 5) {
+    errors.push("Email should be at least 5 charcters long");
+  }
+  if (state.email.split("").filter((x) => x === "@").length !== 1) {
+    errors.push("Email should contain a @");
+  }
+  if (state.email.indexOf(".") === -1) {
+    errors.push("Email should contain at least one dot");
+  }
 
-const MIN_DATE = "1979-12-31";
+  if (state.password.length < 8 || passwordValidate(state.password)) {
+    errors.push("Password should be at least 8 characters long");
+  }
 
+  return errors;
+}
 export default class SignupComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -19,22 +53,73 @@ export default class SignupComponent extends React.Component {
       email: "",
       password: "",
       hiddenPassword: true,
-      signupSuccess: false,
-      signupError: false,
       firstName: "",
       lastName: "",
-      dob: "",
+      // dob: "",
       mobile: "",
+      LoggedIn: false,
     };
   }
 
-  render() {
-    const hideiconstyle = this.state.hiddenPassword ? { display: "none" } : {};
-    const showiconstyle = !this.state.hiddenPassword ? { display: "none" } : {};
+  handleEmailChange = (eve) => {
+    this.setState({ email: eve.target.value });
+  };
+  handlePasswordChange = (e) => {
+    this.setState({ password: e.target.value });
+  };
 
+  handleFirstNameChange = (e) => {
+    this.setState({ firstName: e.target.value });
+  };
+  handleLastNameChange = (e) => {
+    this.setState({ lastName: e.target.value });
+  };
+  // handleDobChange = (e) => {
+  //   this.setState({ dob: e.target.value });
+  // };
+  handleMobileChange = (event) => {
+    this.setState({ mobile: event.target.value });
+  };
+
+  submitSignUpRequest = (event) => {
+    event.preventDefault();
+    const state = this.state;
+    const errors = validate(state);
+    event.target.className += " was-validated";
+
+    if (errors.length > 0) {
+      console.log(errors);
+      return;
+    } else {
+      console.log("good to go");
+      // return (
+      //   <Redirect
+      //     to={{
+      //       pathname: "/Login",
+      //     }}
+      //   />
+      // );
+      this.setState({
+        LoggedIn: true,
+      });
+    }
+  };
+
+  render() {
+    if (this.state.LoggedIn)
+      return (
+        <Redirect
+          to={{
+            pathname: "/Login",
+          }}
+        />
+      );
     return (
       <React.Fragment>
-        <Container>
+        <div className="container_main">
+          <div className="brand_logo_container">
+            {/* <img src={logo} alt="logo" className="brand_logo" /> */}
+          </div>
           <form
             className="signup-form"
             onSubmit={this.submitSignUpRequest}
@@ -42,17 +127,12 @@ export default class SignupComponent extends React.Component {
           >
             <Row>
               <Col>
-                <h3>Sign Up</h3>
-                <br />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
                 <Form.Group controlId="formSignUpFirstName">
                   <Form.Label>First Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter First Name"
+                    onChange={this.handleFirstNameChange}
                     required
                   />
                   <div className="invalid-feedback">
@@ -60,14 +140,14 @@ export default class SignupComponent extends React.Component {
                   </div>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
+
               <Col>
                 <Form.Group controlId="formSignUpLastName">
                   <Form.Label>Last Name</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Enter Last Name"
+                    onChange={this.handleLastNameChange}
                     required
                   />
                   <div className="invalid-feedback">
@@ -83,6 +163,7 @@ export default class SignupComponent extends React.Component {
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
+                    onChange={this.handleEmailChange}
                     required
                   />
                   <div className="invalid-feedback">
@@ -101,22 +182,9 @@ export default class SignupComponent extends React.Component {
                       type={this.state.hiddenPassword ? "password" : "text"}
                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                       value={this.state.password}
+                      onChange={this.handlePasswordChange}
                       required
                     />
-                    <InputGroup.Append>
-                      <InputGroup.Text
-                        onClick={this.togglePassword}
-                        style={showiconstyle}
-                      >
-                        <i className="fa fa-eye" aria-hidden="true"></i>
-                      </InputGroup.Text>
-                      <InputGroup.Text
-                        onClick={this.togglePassword}
-                        style={hideiconstyle}
-                      >
-                        <i className="fa fa-eye-slash" aria-hidden="true"></i>
-                      </InputGroup.Text>
-                    </InputGroup.Append>
                     <div className="invalid-feedback">
                       Password must be 6 characters long It should contain a
                       number and <br></br> contain , uppercase and lowercase
@@ -127,24 +195,21 @@ export default class SignupComponent extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col>
+              {/* <Col>
                 <Form.Group controlId="formSignUpDob">
                   <Form.Label>Date of birth</Form.Label>
                   <Form.Control
                     placeholder=""
                     type="date"
-                    min={MIN_DATE}
-                    max={MAX_DATE}
+                    onChange={this.handleDOBChange}
                     required
                   />
-                  {/* <Form.Control placeholder="" type="date" onChange={this.handleDobChange} max={this.state.maxDate} min={this.state.minDate} required /> */}
                   <div className="invalid-feedback">
                     Please select Date of Birth
                   </div>
                 </Form.Group>
-              </Col>
-            </Row>
-            <Row>
+              </Col> */}
+
               <Col>
                 <Form.Group controlId="formSignUpMobile">
                   <Form.Label>Contact Number</Form.Label>
@@ -153,6 +218,7 @@ export default class SignupComponent extends React.Component {
                     type="text"
                     pattern="[0-9]+"
                     required
+                    onChange={this.handleMobileChange}
                   />
                   <div className="invalid-feedback">
                     Please enter your contact number
@@ -160,22 +226,7 @@ export default class SignupComponent extends React.Component {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <Alert
-                  variant="success"
-                  className={!this.state.signupSuccess ? "hidden" : ""}
-                >
-                  {this.state.signupSuccess || SIGNUP_SUCCESS}
-                </Alert>
-                <Alert
-                  variant="danger"
-                  className={!this.state.signupError ? "hidden" : ""}
-                >
-                  {this.state.errorMessage || SIGNUP_ERROR}
-                </Alert>
-              </Col>
-            </Row>
+
             <Row>
               <Col>
                 <Button
@@ -187,15 +238,16 @@ export default class SignupComponent extends React.Component {
                 >
                   Sign Up
                 </Button>
+                <br></br>
                 <Row>
                   <Col>
-                    <Link to="/Login">Already a member</Link>
+                    <Link to="/Login">Already a member?SignIn</Link>
                   </Col>
                 </Row>
               </Col>
             </Row>
           </form>
-        </Container>
+        </div>
       </React.Fragment>
     );
   }
