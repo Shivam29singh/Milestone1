@@ -17,7 +17,7 @@ class navigation extends Component {
           <Nav className="mr-auto"></Nav>
           <Nav>
             <Nav.Link href="#deets">Dashboard</Nav.Link>
-            <Nav.Link href="./MyProfile">My Profile</Nav.Link>
+            <Nav.Link href="./MyProfile">Product</Nav.Link>
             <Nav.Link eventKey={2} href="./Login">
               Logout
             </Nav.Link>

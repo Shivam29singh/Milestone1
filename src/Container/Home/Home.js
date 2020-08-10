@@ -98,6 +98,7 @@ class Home extends Component {
             />
 
             <Button variant="outline-primary">Search</Button>
+
             <Button
               style={{ float: "right" }}
               onClick={this.openAddProduct}
