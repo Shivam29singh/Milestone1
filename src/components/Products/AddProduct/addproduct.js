@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Container } from "react-bootstrap";
 
 class AddProduct extends React.Component {
   constructor(props) {
@@ -58,20 +59,23 @@ class AddProduct extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Add product!!!!</h3>
-        <form>
-          <label>Name: </label>
-          <input type="text" id="productname" onChange={this.getName}></input>
-          <br></br>
-          <label>Price: </label>
-          <input
-            type="number"
-            id="productprice"
-            onChange={this.getPrice}
-          ></input>
-          <br></br>
-          {/* <label>Quantity: </label>
+      <Container>
+        <div>
+          <h3>Add product!!!!</h3>
+          <form>
+            <label>Name: </label>
+            <br />
+            <input type="text" id="productname" onChange={this.getName}></input>
+            <br></br>
+            <label>Price: </label>
+            <br />
+            <input
+              type="number"
+              id="productprice"
+              onChange={this.getPrice}
+            ></input>
+            <br></br>
+            {/* <label>Quantity: </label>
           <input
             type="number"
             id="productquantity"
@@ -85,22 +89,29 @@ class AddProduct extends React.Component {
             onChange={this.getCategory}
           ></input>
           <br></br> */}
-          <label>Image Url: </label>
-          <input type="text" id="productimg" onChange={this.getImage}></input>
-          <br></br>
-          <button type="button" onClick={this.addproduct}>
-            Add product
-          </button>
-          <br></br>
-          <div>
-            <h4>Preview</h4>
-            product Name: {this.state.productname}
+            <label>Image Url: </label>
+            <br />
+            <input type="text" id="productimg" onChange={this.getImage}></input>
             <br></br>
-            product PRICE: {this.state.productprice}
+            <br />
+            <br />
+            <button type="button" onClick={this.addproduct}>
+              Add product
+            </button>
             <br></br>
-          </div>
-        </form>
-      </div>
+            <Container>
+              <div>
+                <h4>Preview</h4>
+                Product Name: {this.state.productname}
+                <br />
+                <br></br>
+                Product PRICE: {this.state.productprice}
+                <br></br>
+              </div>
+            </Container>
+          </form>
+        </div>
+      </Container>
     );
   }
 }

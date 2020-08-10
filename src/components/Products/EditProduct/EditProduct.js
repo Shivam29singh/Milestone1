@@ -1,6 +1,8 @@
 import React from "react";
 
 import axios from "axios";
+import "./EditProduct.css";
+import { Container } from "react-bootstrap";
 class EditProduct extends React.Component {
   constructor(props) {
     super(props);
@@ -94,58 +96,64 @@ class EditProduct extends React.Component {
     }
 
     return (
-      <div>
+      <Container>
         <div>
-          <h1>Edit Product with id:{this.props.location.state.myid} </h1>
-
           <div>
-            <h3>Edit Product!!!!</h3>
+            <h1>Edit Product with id:{this.props.location.state.myid} </h1>
 
-            <form>
-              <label>Id: </label>
+            <div>
+              <h3 style={{ textAlign: "center" }}>Edit Product!!!!</h3>
 
-              <input type="number" value={this.state.id} readOnly></input>
+              <form>
+                <label style={{ textAlign: "center" }}>Id: </label>
+                <br />
 
-              <br></br>
+                <input type="number" value={this.state.id} readOnly></input>
 
-              <label>Name: </label>
-
-              <input
-                type="text"
-                id="Productname"
-                value={this.state.name}
-                onChange={this.getName}
-              ></input>
-
-              <br></br>
-
-              <label>Price: </label>
-
-              <input
-                type="number"
-                id="ProductPrice"
-                value={this.state.price}
-                onChange={this.getPrice}
-              ></input>
-
-              <br></br>
-
-              <button type="button" onClick={this.editProduct}>
-                Edit Product
-              </button>
-
-              <br></br>
-
-              <div>
-                <h4>Preview</h4>
-                Product Name: {this.state.name}
                 <br></br>
-                Product Price: {this.state.price}
-              </div>
-            </form>
+
+                <label style={{}}>Name: </label>
+                <br />
+
+                <input
+                  type="text"
+                  id="Productname"
+                  value={this.state.name}
+                  onChange={this.getName}
+                ></input>
+
+                <br></br>
+
+                <label>Price: </label>
+                <br />
+
+                <input
+                  type="number"
+                  id="ProductPrice"
+                  value={this.state.price}
+                  onChange={this.getPrice}
+                ></input>
+
+                <br />
+                <br />
+
+                <button type="button" onClick={this.editProduct}>
+                  Edit Product
+                </button>
+
+                <br></br>
+
+                <div>
+                  <h4>Preview</h4>
+                  Product Name: {this.state.name}
+                  <br></br>
+                  Product Price: {this.state.price}
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
