@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { CardColumns, Card, Container } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import axios from "axios";
 import { Redirect } from "react-router";
+import "./Product.css";
 class Product extends Component {
   state = {
     deleteSuccess: false,
@@ -30,6 +31,11 @@ class Product extends Component {
 
     this.props.editId(this.props.id);
   };
+  getStock = () => {
+    console.log(this.props.id);
+
+    this.props.stockId(this.props.id);
+  };
   render() {
     if (this.state.deleteSuccess) {
       return <Redirect to="/Home" />;
@@ -47,22 +53,35 @@ class Product extends Component {
       );
     }
     return (
-      <Container>
-        <CardColumns>
-          <Card>
-            <Card.Img variant="top" src={this.props.image} />
-            <Card.Body>
-              <Card.Title>{this.props.name}</Card.Title>
-              <Card.Text>
-                {this.props.price}
-                <button onClick={this.editProductWithId}>Edit</button>
-                &nbsp;
-                <button onClick={this.deleteCurrentProduct}>Delete</button>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </CardColumns>
-      </Container>
+      <div className="grid">
+        <Card style={{ width: 200 }} className="cards">
+          <Card.Img
+            variant="top"
+            src={this.props.image}
+            onClick={this.getStock}
+          />
+          <Card.Body>
+            <Card.Title>Product:{this.props.name}</Card.Title>
+            <Card.Text>
+              Price:
+              {this.props.price}
+              {/* <Card.Text>Quantity:{this.props.quantity}</Card.Text> */}
+              <br />
+              <br />
+              <button onClick={this.editProductWithId} className="btn-edit">
+                Edit
+              </button>
+              &nbsp;
+              <button
+                onClick={this.deleteCurrentProduct}
+                className="btn-delete"
+              >
+                Delete
+              </button>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
     );
   }
 }

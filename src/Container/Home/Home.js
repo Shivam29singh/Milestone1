@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Product from "../../components/Products/Product/Product";
 import axios from "axios";
-import { Form, FormControl, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 class Home extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class Home extends Component {
     console.log(searchV);
     let searchF = this.state.productList.filter((f) => {
       console.log(f.value);
-      return f.includes(searchV);
+      return f.value.toLowerCase().match(searchV.toLowerCase());
     });
     console.log(searchF);
     this.setState({ productList: searchF });
@@ -80,27 +80,46 @@ class Home extends Component {
           image={product.img}
           deleteId={this.deleteProductWithId}
           editId={this.editProductWithId}
+          stockId={this.getStocks}
         ></Product>
       );
+    });
+  };
+  getStocks = (id) => {
+    this.setState({ myid: id });
+
+    console.log("Product Stock with id: " + id);
+
+    this.props.history.push({
+      pathname: "/dashboard",
+
+      state: { myid: id },
     });
   };
   render() {
     return (
       <div>
         <Navbar />
-        <Form inline>
+        <Form>
           <span>
-            <FormControl
+            {/* <FormControl
               type="text"
               placeholder="Search"
               onChange={this.getSearch}
               className="mr-sm-1"
             />
 
-            <Button variant="outline-primary">Search</Button>
-
+            <Button variant="outline-primary">Search</Button> */}
+            <br></br>
+            <label>Search: </label>
+            <input
+              type="text"
+              value={this.state.searchValue}
+              onChange={this.getSearch}
+            ></input>
+            SearchValue: {this.state.searchValue}
             <Button
-              style={{ float: "right" }}
+              style={{ float: "right", height: "40px" }}
               onClick={this.openAddProduct}
               variant="outline-primary"
             >
